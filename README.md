@@ -1,7 +1,7 @@
 # Base de la Conception Orientée-Objet 2020
 TD/TP 2020 du cours de BCOO (M2105)
 
-## Identifiaction
+## Identification
 :warning: Remplacer vos nom/prénoms/groupe dans ce qui suit :
 
 ### NOM : DOE
