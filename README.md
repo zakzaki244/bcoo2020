@@ -22,4 +22,4 @@ TD/TP 2020 du cours de BCOO (M2105)
 Fix #2.2.3: diagramme de classe de la voiture
 ```
 
-![Illustratino du commit](commit.png)
+![Illustration du commit](commit.png)
