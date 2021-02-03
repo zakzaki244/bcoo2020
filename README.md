@@ -8,7 +8,7 @@ TD/TP 2020 du cours de BCOO (M2105)
 ### Prénom : John
 ### Groupe de TP : 
 - [x] 1
-- [x] 2
+- [ ] 2
 - [ ] 3
 - [ ] 4
 
