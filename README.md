@@ -19,7 +19,7 @@ TD/TP 2020 du cours de BCOO (M2105)
 3. Ajoutez un fichier correspondant à votre réponse à une question (exemple pour la question 2.3 => `TD2.2.3.plantuml`)
 4. Quand vous estimez avoir fini, indiquez en message du "commit" associé un message de la forme :
 ```
-Fix #2.2.3: diagramme de classe de la voiture
+Fix 2.2.3 : diagramme de classe de la voiture
 ```
 
 ![Illustration du commit](commit.png)
