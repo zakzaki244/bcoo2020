@@ -1,0 +1,52 @@
+@startuml
+
+hide circle
+hide empty methods
+hide empty attributes
+
+class Stage {
+  lieu
+  dateDebut
+  nomTuteur
+  theme
+}
+class Entreprise {
+  nom
+  adresse
+  siegeSocial
+}
+
+class Promotion {
+    libelle
+}
+
+class Etudiant {
+    numINE
+    nom
+    prenom
+    note
+}
+
+class GroupeTP {
+    libelle
+}
+class GroupeTD {
+    libelle
+}
+
+class Enseignant {
+    nom
+    prenom
+    specialite
+}
+
+Stage "1" -- "*" Entreprise
+Stage -- "1" Promotion
+Etudiant -- "1" GroupeTP
+GroupeTP -- "1" GroupeTD
+GroupeTD -- "1" Promotion
+Tuteur -|> Enseignant
+Stage -- "0..1\nTuteur" Enseignant
+Stage "0..1" - "0..1" Etudiant
+
+@enduml
