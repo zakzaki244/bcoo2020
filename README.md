@@ -1,5 +1,5 @@
 # Base de la Conception Orientée-Objet 2020
-TD/TP 2020 du cours de BCOO (M2105)
+TD/TP 2020 du cours de BCOO  (M2105)
 
 ## Identification
 :warning: Remplacer vos nom/prénoms/groupe dans ce qui suit :
