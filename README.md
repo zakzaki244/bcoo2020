@@ -4,13 +4,13 @@ TD/TP 2020 du cours de BCOO (M2105)
 ## Identification
 :warning: Remplacer vos nom/prénoms/groupe dans ce qui suit :
 
-### NOM : Doe
-### Prénom : John
-### Groupe de TP : 
-- [x] 1
+### NOM : BOUJETTIOUA
+### Prénom : Zakaria
+### Groupe de TP : 4A
+- [ ] 1
 - [ ] 2
 - [ ] 3
-- [ ] 4
+- [x] 4
 
 ## Consignes
 
