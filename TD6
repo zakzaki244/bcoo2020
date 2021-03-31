@@ -1,0 +1,59 @@
+@startuml
+
+class Qualification {
+    idCodeQualif
+    libelleQualif
+    tauxHoraire
+}
+
+class Artisan {
+    idSiret
+    nomArt
+    adresseArt
+    tphArt
+}
+
+class Tache {
+    idCodeTache
+    designationT
+}
+
+class Realiser {
+    dateReal
+    dureeReal
+}
+
+class Executer {
+    ordre
+    dureeMoy
+}
+
+class Modele {
+    idCodeModele
+    designationM
+    prixVenteM
+    prixRevientM
+    dureeConstructionM
+}
+
+class Chantier {
+    idChantier
+    nomProprio
+    adresseChantier
+    adresseProprio
+    telProprio
+    dateOuverture
+    dateCloture
+    estTermine
+}
+
+Qualification "1" -- "*" Artisan
+Qualification "1" -- Tache
+Artisan "1" -- "*" Realiser
+Tache "1" -- "*" Realiser
+Tache "1..*" -- "0..*" Modele
+Realiser "*" -- Chantier
+Modele "1" -- "*" Chantier
+(Tache, Modele) . Executer
+
+@enduml
