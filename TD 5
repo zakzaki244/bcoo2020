@@ -1,1 +1,9 @@
 
+B -> C: la monnaie restante
+  C -> A: rendre la monnaie
+
+
+  C -> C : enregistrer
+  C --> B : imprimer ticket
+
+  B --> A : donner ticket
