@@ -1,5 +1,40 @@
-
-B -> C: la monnaie restante
+@startuml
+'autonumber
+hide footbox
+participant A as ":Client"
+participant B as ":Caisse"
+participant C as ":Caissier"
+participant D as ":Article"
+participant E as ":Tapis"
+A -> B: arrive
+activate B
+A -> E : deposerArticles
+activate E
+loop "Pour chaque article"
+  C -> E: prendreArticle
+  C -> B: scanne
+  activate C
+  
+  par
+  B --> D: getPrix()
+  B --> D: getLibelle()
+  
+  else
+  opt "qté > 1"
+    C -> B: saisir(qté)
+  end
+  end
+  B --> A: prix et libellé
+  B --> C: prix et libellé
+  B -> B: montantTotal += prix * qté
+end
+  C -> B:fin
+  B --> A: montant total
+  B --> C: montant total  
+  
+  A -> C: payen en liquide (s)
+  C -> B: encaisser(s)
+  B -> C: la monnaie restante
   C -> A: rendre la monnaie
 
 
@@ -7,3 +42,7 @@ B -> C: la monnaie restante
   C --> B : imprimer ticket
 
   B --> A : donner ticket
+
+
+
+@enduml
