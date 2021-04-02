@@ -1,6 +1,9 @@
 @startuml
+
 'autonumber
+
 hide footbox
+
 participant A as ":Client"
 participant B as ":Caisse"
 participant C as ":Caissier"
