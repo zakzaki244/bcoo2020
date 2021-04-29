@@ -49,3 +49,106 @@ end
 
 
 @enduml
+ 
+----
+@startuml
+
+actor Client
+participant Caisse
+actor Caissier
+actor Banque
+
+loop Tant qu'il y a des articles
+    Client -> Caissier: Donner article
+    Caissier -> Caisse: Enregistre le num. d'identification de l'article
+    
+    alt La quantité de l'article > 1
+        Caissier -> Caisse: Enregistre la quantité de l'article
+    end
+    
+    
+    Caisse --> Client: Prix et libellé de l'article
+    Caisse --> Caissier: Prix et libellé de l'article
+end
+
+Caissier -> Caisse: Fin de la vente
+
+Caisse --> Client: Total
+Caisse --> Caissier: Total
+
+Caissier -> Client: Annonce du montant à payer
+
+Client -> Caissier: Paiement
+
+alt Paiement en liquide
+    Caissier -> Caisse: Encaissement de l'argent
+    Caisse --> Caissier: Montant à rendre
+    Caisse --> Client: Montant à rendre
+    
+    alt Paiement > Montant à payer
+        Caissier -> Client: Rendu
+    end
+end
+
+alt Paiement en chèque
+    Caissier -> Caisse: Numéro de la carte d'id. du client
+end
+
+alt Paiement en carte de crédit
+    Caisse -> Banque: Demande d'autorisation
+end
+
+Caisse -> Caisse: Enregistrement de la vente
+Caisse -> Caissier: Ticket
+Caissier -> Client: Ticket
+
+@enduml
+----
+
+== 2. Distributeur automatique de billets
+
+[plantuml, "td62", png]  
+----
+@startuml
+
+actor Client
+participant Distributeur
+actor Banque
+
+Client -> Distributeur: Introduction carte
+Distributeur -> Distributeur: Vérification validité de la carte
+Distributeur --> Client: Demande du code
+
+loop Tant que le code n'est pas valide
+    Client -> Distributeur: Saisie du code
+    Distributeur -> Distributeur: Vérification du code
+    
+    alt Le code est invalide
+        Distributeur -> Client: Le code est invalide
+    end
+end
+
+Distributeur -> Banque: Demande d'autorisation de prélèvement
+Banque -> Distributeur: Solde autorisé à prélever
+Distributeur --> Client: Proposition de plusieurs soldes
+loop Tant que le montant n'est pas valide
+Client -> Distributeur: Saisie du montant à prélever
+    Distributeur -> Distributeur: Vérification du montant à prélever
+    
+    alt Le montant est supérieur au solde
+        Distributeur -> Client: Le montant est invalide
+    end
+end
+
+Distributeur --> Client: Demande de ticket
+Client -> Distributeur: Réponse à la demande de ticket
+Distributeur -> Client: Carte ejectée
+
+alt Le client désire un ticket
+    Distributeur -> Client: Le ticket
+end
+
+Distributeur -> Client: Les billets
+
+@enduml
+----
