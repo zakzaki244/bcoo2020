@@ -57,3 +57,174 @@ Modele "1" -- "*" Chantier
 (Tache, Modele) . Executer
 
 @enduml
+ 
+----
+@startuml
+
+class Qualification {
+    idCodeQualif
+    libelleQualif
+    tauxHoraire
+    getArtisans(): Artisan[]
+    getTauxHoraire()
+}
+
+class Artisan {
+    idSiret
+    nomArt
+    adresseArt
+    tphArt
+    getNomArt(): String
+    getPayeArtisan(c: Chantier): Integer
+}
+
+class Tache {
+    idCodeTache
+    designationT
+    getQualif(): Qualification
+    getDesignationT()
+}
+
+class Realiser {
+    dateReal
+    dureeReal
+    setDateReal(d)
+    setDureeReal(d)
+    getTache()
+    getDuree()
+}
+
+class Executer {
+    ordre
+    dureeMoy
+    getTache(): Tache
+}
+
+class Modele {
+    idCodeModele
+    designationM
+    prixVenteM
+    prixRevientM
+    dureeConstructionM
+    calculerDureeMoy()
+    getArtisansQualifies(): Artisan[]
+}
+
+class Chantier {
+    idChantier
+    nomProprio
+    adresseChantier
+    adresseProprio
+    telProprio
+    dateOuverture
+    dateCloture
+    estTermine
+    setDateCloture(d)
+    getBilanAvancement()
+    estTermine()
+    getDureeChantier()
+}
+
+Qualification "1" -- "*" Artisan
+Qualification "1" -- Tache
+Artisan "1" -- "*" Realiser
+Tache "1" -- "*" Realiser
+Tache "1..*" -- "0..*" Modele
+Realiser "*" -- Chantier
+Modele "1" -- "*" Chantier
+(Tache, Modele) . Executer
+
+@enduml
+----
+
+==== Code Java de la méthode getPayeArtisan()
+
+----
+public class Artisan {
+	
+	// Attributes-------------------------------------------
+	
+	private Realiser[] mesReal;
+	// le tableau ci-dessus contient l'ensemble des références d'objet Realiser lié à l'artisan
+	
+	private Qualification maQualif;
+	// l'attribut ci-dessus contient la référence de l'objet Qualifications lié à l'artisan
+	
+	private String idSIRET;
+	private String nomArt;
+	private String adresseArt;
+	private String tphArt;
+
+	// Methods-------------------------------------------
+	
+	public Artisans () {
+		// constructor
+	}
+
+	public String getNomArt () {
+		return nomArt;
+	}
+
+	public Integer getPayeArtisan(Chantier c) {
+		int total = 0;
+		
+		for (int i = 0; i < mesReal.length ; i++) {
+			if (mesReal[i].getChantier() == c) {
+				total += mesReal[i].getDuree();
+				// si le chantier de l'objet Realiser est le même que le chantier passé
+				// en paramètre alors je cumule la durée de la Réalisation dans la variable total
+			}
+		}
+		
+		return (total * maQualif.getTauxHoraire());
+		// on retourne la paye de l'artisan pour ce chantier (soit le nb d'heures
+		// travaillés sur ce chantier multipliés par le taux horaire liée à la qualification de l'artisan
+	}
+}
+----
+
+==== Diagramme de séquences détaillé de la méthode getPayeArtisan()
+
+[plantuml, "td6DiagrammeSequences", png]  
+----
+@startuml
+
+participant Main
+participant Artisan
+participant Realiser
+participant Qualification
+
+Main -> Artisan: getPayeArtisan(c)
+
+loop Pour toutes les réalisations de l'artisan
+    Artisan -> Realiser: getChantier()
+    note right: if (mesReal[i].**getChantier()** == c)
+    
+    Realiser --> Artisan: le chantier
+    
+    opt "c" == le chantier courant
+        Artisan -> Realiser: getDuree()
+        note right: total += mesReal[i].**getDuree()**
+        
+        Realiser --> Artisan: la durée
+        
+        Artisan -> Artisan
+        note right: **total += mesReal[i].getDuree()**
+    end
+    note right: **if** (mesReal[i].getChantier() == c)
+end
+note right: **for** (int i = 0; i < mesReal.length ; i++)
+    
+Artisan -> Qualification: getTauxHoraire()
+note right: return (total * maQualif.**getTauxHoraire()**)
+
+Qualification --> Artisan: le taux horaire
+
+Artisan -> Artisan
+note right: return **total * maQualif.getTauxHoraire()**
+
+Artisan --> Main: la paye
+note right: **return** total * maQualif.getTauxHoraire()
+
+@enduml
+----
