@@ -1,0 +1,85 @@
+
+== 2. Exercices
+
+=== 2.1 Etablissement scolaire
+
+[plantuml, "td421", png]  
+----
+@startuml
+
+top to bottom direction
+
+actor :Enseignant responsable:
+actor Enseignant
+actor Utilisateur
+
+Enseignant --|> Utilisateur
+:Enseignant responsable: --|> Enseignant
+
+usecase "Effectuer réservation" as UC1
+usecase "Vérifier la disponibilité" as UC1_0
+usecase "Réserver salle" as UC1_1
+usecase "Réserver matériel" as UC1_2
+usecase "Réserver ordinateur" as UC1_2_1
+usecase "Réserver vidéo-projecteur" as UC1_2_2
+usecase "Consulter planning" as UC2
+usecase "Consulter récapitulatif horaire" as UC3
+usecase "Editer récapitulatif horaire" as UC4
+
+UC1 --> UC1_0 : <<include>>
+UC1_1 --|> UC1
+UC1_2 --|> UC1
+UC1_2_1 --|> UC1_2
+UC1_2_2 --|> UC1_2
+
+Enseignant -- UC1
+Utilisateur -- UC2
+Enseignant -- UC3
+:Enseignant responsable: -- UC4
+
+@enduml
+----
+
+=== 2.2 Magasin
+
+[plantuml, "td422", png]  
+----
+@startuml
+
+top to bottom direction
+
+actor Client
+actor Vendeur
+actor Caisse
+actor Banque
+
+usecase "Prospecter" as UC1
+usecase "Essayer" as UC2
+usecase "Acheter" as UC3
+usecase "Renseigner" as UC4
+usecase "Vérifier stock" as UC5
+usecase "Bénéficier réduction" as UC6
+usecase "Payer" as UC7
+usecase "Payer par CB" as UC8
+usecase "Payer en liquide" as UC9
+usecase "Payer par chèque" as UC10
+
+UC2 --> UC1 : <<extends>>
+UC4 --> UC1 : <<extends>>
+UC1 --> UC3 : <<extends>>
+UC6 --> UC3 : <<extends>>
+UC3 --> UC5 : <<include>>
+UC3 --> UC7 : <<include>>
+UC8 --|> UC7
+UC9 --|> UC7
+UC10 --|> UC7
+
+Client -- UC1
+Client -- UC3
+Vendeur -- UC4
+Vendeur -- UC5
+Caisse -- UC7
+Banque -- UC8
+
+@enduml
+----
